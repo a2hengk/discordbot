@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Secrets
+.env
+config.json
+
+# Laufzeit-Daten (Server-Einstellungen, offene Tickets)
+data/settings.json
+data/settings.tmp

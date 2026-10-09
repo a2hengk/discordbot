@@ -1,0 +1,70 @@
+{
+    "greetings": [
+        {
+            "triggers": ["guten morgen", "good morning", "gumo"],
+            "response": "Guten Morgen, {mention}! ☀️"
+        },
+        {
+            "triggers": ["gute nacht", "good night", "guna"],
+            "response": "Gute Nacht, {mention}! 🌙"
+        },
+        {
+            "triggers": ["mahlzeit"],
+            "response": "Mahlzeit! {mention}, lass es dir schmecken! 🍽️"
+        },
+        {
+            "triggers": ["ja", "ya"],
+            "response": "Nichts hihi <3"
+        }
+    ],
+
+    "_comment": "Wird nur bei @Mention oder Reply auf den Bot geprüft. Reihenfolge zählt: der erste Treffer gewinnt, deshalb steht 'traurig' vor 'glücklich' ('nicht gut' enthält 'gut').",
+    "intents": [
+        {
+            "name": "wie_gehts",
+            "triggers": ["wie gehts", "wie geht's", "wie geht es dir", "how are you"],
+            "responses": [
+                "Mir geht's gut, danke der Nachfrage! Und dir?",
+                "Alles bestens! Wie sieht's bei dir aus?",
+                "Ich fühle mich großartig! Und du?",
+                "Danke, mir geht's super! Wie geht's dir?"
+            ]
+        },
+        {
+            "name": "user_traurig",
+            "triggers": [
+                "schlecht", "mir geht es schlecht", "nicht gut", "mies", "beschissen",
+                "kacke", "könnte besser sein", "so lala", "es geht", "geht so"
+            ],
+            "responses": [
+                "Oh nein, das tut mir leid 🫂 Magst du erzählen, was los ist? Was machst du gerade?",
+                "Das klingt nach einem doofen Tag. Ich hoffe, es wird gleich besser – was machst du gerade?"
+            ]
+        },
+        {
+            "name": "user_gluecklich",
+            "triggers": [
+                "super", "gut", "mir geht es hervorragend", "mir geht's gut",
+                "alles bestens", "fantastisch", "prima", "sehr gut"
+            ],
+            "responses": ["Das freut mich! Was machst du gerade?"]
+        },
+        {
+            "name": "was_machst_du",
+            "triggers": ["was machst du"],
+            "responses": ["Ich schaue gerade The Angel Next Door Spoils Me Rotten mit meinem Liebling Lunas an!"]
+        },
+        {
+            "name": "witz",
+            "triggers": [
+                "erzaehle mir einen witz", "erzähl mir einen witz",
+                "erzaehle mir ein witz", "erzähl mir ein witz", "witz"
+            ],
+            "responses": [
+                "Warum können Geister so schlecht lügen? Weil man durch sie hindurchsehen kann!",
+                "Was macht ein Pirat am Computer? Er drückt die Enter-Taste. 🏴‍☠️",
+                "Wie nennt man einen Bumerang, der nicht zurückkommt? Stock."
+            ]
+        }
+    ]
+}
