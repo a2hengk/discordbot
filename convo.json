@@ -1,0 +1,66 @@
+{
+    "wie_gehts_phrases": [
+        "wie gehts",
+        "wie geht's",
+        "wie geht es dir",
+        "how are you?"
+    ],
+
+    "wie_gehts_responses": [
+        "Mir geht's gut, danke der Nachfrage! Und dir?",
+        "Alles bestens! Wie sieht's bei dir aus?",
+        "Ich fühle mich großartig! Und du?",
+        "Danke, mir geht's super! Wie geht's dir?"
+    ],
+
+    "user_wie_gehts_responses_happy": [
+        "super",
+        "gut",
+        "mir geht es hervorragend",
+        "mir geht's gut",
+        "alles bestens",
+        "fantastisch",
+        "prima",
+        "sehr gut"
+    ],
+
+    "user_wie_gehts_responses_sad": [
+        "schlecht",
+        "mir geht es schlecht",
+        "nicht gut",
+        "mies",
+        "beschissen",
+        "kacke",
+        "könnte besser sein",
+        "so lala",
+        "es geht",
+        "geht so"
+    ],
+    
+    "user_was_machst_du_phrases": [
+        "was machst du"
+    ],
+
+    "bot_was_machst_du_phrases_happy": [
+        "Das freut mich! Was machst du gerade?"
+    ],
+
+    "bot_was_machst_du_phrases_sad": [
+        "Das tut mir leid zu hören. Ich habe von Quellen gehoert das sich die Kugel geben hilft! Was machst du gerade :3"
+    ],
+
+    "bot_was_machst_du_responses": [
+        "Ich schaue gerade The angel next door spoils me rotten mit meinem Liebling Lunas an!"
+    ],
+
+    "user_erzaele_mir_ein_witz_phrases": [
+        "erzaehle mir einen witz",
+        "erzähl mir einen witz",
+        "erzaehle mir ein witz",
+        "erzähl mir ein witz"
+    ],
+
+    "bot_erzaele_mir_ein_witz_responses": [
+        "Warum können Geister so schlecht lügen? Weil man durch sie hindurchsehen kann!"
+    ]
+}
