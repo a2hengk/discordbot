@@ -10,3 +10,7 @@ config.json
 # Laufzeit-Daten (Server-Einstellungen, offene Tickets)
 data/settings.json
 data/settings.tmp
+data/settings.json.migrated
+data/bot.db
+data/bot.db-wal
+data/bot.db-shm
