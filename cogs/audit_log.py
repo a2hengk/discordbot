@@ -64,6 +64,9 @@ class AuditLog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_delete(self, message: discord.Message):
+        if message.id in self.bot.suppressed_deletes:  # vom Automod gelöscht → steht schon im Mod-Log
+            self.bot.suppressed_deletes.discard(message.id)
+            return
         if message.guild is None or message.author.bot or (not message.content and not message.attachments):
             return
         embed = self._user_embed("🗑️ Nachricht gelöscht", message.author, discord.Color.orange(),

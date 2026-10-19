@@ -7,6 +7,7 @@ from discord import app_commands
 from discord.ext import commands
 
 from core.bot import LunasBot
+from core.utils import role_problem
 
 
 def _channel(guild: discord.Guild, channel_id: int | None) -> str:
@@ -32,6 +33,31 @@ class Config(commands.GroupCog, group_name="config", group_description="Bot-Eins
     async def willkommen(self, interaction: discord.Interaction, kanal: discord.TextChannel | None = None):
         await self.bot.storage.set(interaction.guild_id, "welcome_channel", kanal.id if kanal else None)
         text = f"✅ Willkommensnachrichten gehen nach {kanal.mention}." if kanal else "✅ Willkommensnachrichten aus."
+        await interaction.response.send_message(text, ephemeral=True)
+
+    @app_commands.command(name="modlog", description="Kanal für Mod-Aktionen (Warns, Bans, Automod…). Leer = Audit-Log-Kanal.")
+    async def modlog(self, interaction: discord.Interaction, kanal: discord.TextChannel | None = None):
+        await self.bot.storage.set(interaction.guild_id, "mod_log_channel", kanal.id if kanal else None)
+        text = f"✅ Mod-Log geht jetzt nach {kanal.mention}." if kanal else "✅ Mod-Log nutzt jetzt den Audit-Log-Kanal."
+        await interaction.response.send_message(text, ephemeral=True)
+
+    @app_commands.command(name="autorole", description="Rolle, die neue Mitglieder automatisch bekommen (leer = aus).")
+    async def autorole(self, interaction: discord.Interaction, rolle: discord.Role | None = None):
+        if rolle and (problem := role_problem(rolle)):
+            return await interaction.response.send_message(f"⛔ {problem}", ephemeral=True)
+        await self.bot.storage.set(interaction.guild_id, "autorole", rolle.id if rolle else None)
+        text = f"✅ Neue Mitglieder bekommen {rolle.mention}." if rolle else "✅ Autorole aus."
+        if rolle and self.bot.storage.get(interaction.guild_id, "verify_role"):
+            text += " (Weil Verifizierung an ist: erst nach dem Verifizieren.)"
+        await interaction.response.send_message(text, ephemeral=True)
+
+    @app_commands.command(name="verwarnungen", description="Ab wie vielen Verwarnungen es automatisch Timeout gibt.")
+    @app_commands.describe(schwelle="Alle X Verwarnungen → Timeout (0 = aus)", minuten="Timeout-Dauer in Minuten")
+    async def verwarnungen(self, interaction: discord.Interaction, schwelle: app_commands.Range[int, 0, 20],
+                           minuten: app_commands.Range[int, 1, 40320] = 60):
+        await self.bot.storage.set(interaction.guild_id, "warn_escalation", {"threshold": schwelle, "minutes": minuten})
+        text = (f"✅ Alle {schwelle} Verwarnungen gibt's {minuten} Minuten Timeout." if schwelle
+                else "✅ Automatischer Timeout bei Verwarnungen aus.")
         await interaction.response.send_message(text, ephemeral=True)
 
     @app_commands.command(name="tickets", description="Ticket-System konfigurieren.")
@@ -72,6 +98,15 @@ class Config(commands.GroupCog, group_name="config", group_description="Bot-Eins
         embed.add_field(name="Support-Rolle", value=role.mention if role else "— (nur Admins)")
         embed.add_field(name="Ticket-Kategorie", value=_channel(guild, category_id))
         embed.add_field(name="Offene Tickets", value=str(len(s.get(guild.id, "tickets", {}))))
+        embed.add_field(name="Mod-Log", value=_channel(guild, s.get(guild.id, "mod_log_channel")) + " (sonst Audit-Log)")
+        autorole = guild.get_role(s.get(guild.id, "autorole") or 0)
+        embed.add_field(name="Autorole", value=autorole.mention if autorole else "—")
+        verify = guild.get_role(s.get(guild.id, "verify_role") or 0)
+        embed.add_field(name="Verifizierung", value=verify.mention if verify else "aus")
+        esc = s.get(guild.id, "warn_escalation", {"threshold": 3, "minutes": 60})
+        embed.add_field(name="Warn-Eskalation",
+                        value=f"alle {esc['threshold']} → {esc['minutes']} min Timeout" if esc["threshold"] else "aus")
+        embed.set_footer(text="Mehr: /automod anzeigen · /antiraid status · /levels anzeigen")
         await interaction.response.send_message(embed=embed, ephemeral=True)
 
 

@@ -15,7 +15,8 @@ log = logging.getLogger(__name__)
 ROOT_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT_DIR / "data"
 ASSETS_DIR = ROOT_DIR / "assets"
-SETTINGS_FILE = DATA_DIR / "settings.json"
+SETTINGS_FILE = DATA_DIR / "settings.json"  # nur noch für den einmaligen Import
+DB_FILE = DATA_DIR / "bot.db"
 CONVO_FILE = DATA_DIR / "convo.json"
 
 

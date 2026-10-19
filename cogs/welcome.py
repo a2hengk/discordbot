@@ -1,4 +1,4 @@
-"""Willkommensnachricht mit GIF für neue Mitglieder."""
+"""Willkommensnachricht mit GIF für neue Mitglieder (nur wer durch Anti-Raid durchgekommen ist)."""
 
 from __future__ import annotations
 
@@ -16,7 +16,7 @@ class Welcome(commands.Cog):
         self.bot = bot
 
     @commands.Cog.listener()
-    async def on_member_join(self, member: discord.Member):
+    async def on_member_accepted(self, member: discord.Member):  # Event kommt aus antiraid.py
         channel_id = self.bot.storage.get(member.guild.id, "welcome_channel")
         channel = member.guild.get_channel(channel_id) if channel_id else None
         if not isinstance(channel, discord.TextChannel):
